@@ -1,20 +1,33 @@
+tf.estimator package not installed.
 Help on module common:
 
 NAME
     common - Common util functions
 
 FUNCTIONS
+    estimate(model_dir, raw_bytes)
+        Estimate image data using given learned tensorflow model
+        
+        Do not keep tensorflow session to prevent the memory from wasting
+        Instead of that, make a session for each call.
+        
+        Arguments:
+            model_dir (str): Directory which is saved model
+            raw_bytes (bytes): bytes data of image
+        
+            Return : index of label
+    
     get_image_paths(directory, ext)
         Get full paths with given extenstion
-
+        
         Arguments:
             directory (str): Image directory path
             ext (str): Extenstion filter to add to list
-
+        
         Return:
             full paths (list)
 
 FILE
-    uwo_ps_utils/common.py
+    /home/azza/Private/uwo_ps_utils/uwo_ps_utils/common.py
 
 
