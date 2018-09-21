@@ -66,7 +66,7 @@ def __process_trade_goods(im):
         cell = trade_goods_area.crop([0,
                                       CELL_HEIGHT * i,
                                       width,
-                                      CELL_HEIGHT + * i + CELL_HEIGHT])
+                                      CELL_HEIGHT * i + CELL_HEIGHT])
         if __is_selected_cell(cell):
             images += [cell.crop(TRADE_GOODS_IMAGE_RECT)]
             images += [cell.crop(RATES_RECT)]
@@ -90,11 +90,10 @@ def __process_nearby_towns(im):
     width = nearby_towns_rect[2] - nearby_towns_rect[0]
     images = []
     for i in range(5):
-        nearby_towns_cell = nearby_towns_area
-                        .crop([0,
-                               CELL_HEIGHT * i,
-                               width,
-                               CELL_HEIGHT + * i + CELL_HEIGHT])
+        nearby_towns_cell = nearby_towns_area.crop([0,
+                                                    CELL_HEIGHT * i,
+                                                    width,
+                                                    CELL_HEIGHT * i + CELL_HEIGHT])
         if __has_nearby_town(nearby_towns_cell):
             images += [nearby_towns_cell.crop(NEARBY_TOWNS_NAME_RECT)]
             images += [nearby_towns_cell.crop(RATES_RECT)]
