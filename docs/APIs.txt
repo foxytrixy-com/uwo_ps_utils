@@ -1,0 +1,17 @@
+Module : market_rates_cropper
+    APIs:
+    get_images_from_screenshot(image_path)
+        """This function generate image list from screenshot.
+
+        Each index means:
+            [0] : Image of selected trade goods.
+            [1] : Market Rates of selected trade goods.
+            [2] : Arrow of selected trade goods.
+            [3] : Name of the 1st nearby town
+            [4] : Market Rates of the 1st nearby town
+            [5] : Arrow of the 1st nearby town
+            [6] ~ [8] : the 2nd nearby town. this index may not exist.
+            [9] ~ [11] : the 3rd nearby town. this index may not exist.
+            [12] ~ [14] : the 4th nearby town. this index may not exist.
+            [15] ~ [17] : the 5th nearby town. this index may not exist.
+        """
