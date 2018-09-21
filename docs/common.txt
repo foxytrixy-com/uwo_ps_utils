@@ -1,0 +1,20 @@
+Help on module common:
+
+NAME
+    common - Common util functions
+
+FUNCTIONS
+    get_image_paths(directory, ext)
+        Get full paths with given extenstion
+
+        Arguments:
+            directory (str): Image directory path
+            ext (str): Extenstion filter to add to list
+
+        Return:
+            full paths (list)
+
+FILE
+    uwo_ps_utils/common.py
+
+

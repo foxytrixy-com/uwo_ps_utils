@@ -1,7 +1,15 @@
-Module : market_rates_cropper
-    APIs:
+Help on module market_rates_cropper:
+
+NAME
+    market_rates_cropper
+
+DESCRIPTION
+    This module get trade goods, rates, arrows, town name images
+    from the screenshot.
+
+FUNCTIONS
     get_images_from_screenshot(image_path)
-        """This function generate image list from screenshot.
+        This function generate image list from screenshot.
 
         Each index means:
             [0] : Image of selected trade goods.
@@ -14,4 +22,17 @@ Module : market_rates_cropper
             [9] ~ [11] : the 3rd nearby town. this index may not exist.
             [12] ~ [14] : the 4th nearby town. this index may not exist.
             [15] ~ [17] : the 5th nearby town. this index may not exist.
-        """
+
+DATA
+    ARROW_RECT = (231, 31, 244, 44)
+    CELL_HEIGHT = 56
+    NEARBY_TOWNS_NAME_RECT = (54, 10, 118, 25)
+    NEARBY_TOWNS_RECT = {(800, 600): (432, 103, 679, 382), (1024, 768): (5...
+    RATES_RECT = (168, 31, 194, 44)
+    TRADE_GOODS_IMAGE_RECT = (5, 7, 47, 31)
+    TRADE_GOODS_RECT = {(800, 600): (69, 103, 316, 326), (1024, 768): (181...
+
+FILE
+    uwo_ps_utils/market_rates_cropper.py
+
+

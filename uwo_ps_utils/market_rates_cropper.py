@@ -1,14 +1,16 @@
-# This module provides various funtions to process image for this program
+"""This module get trade goods, rates, arrows, town name images
+from the screenshot.
+"""
 from PIL import Image
 
-# Rectangle informations
+# Rectangle informations - Relative in a cell
 TRADE_GOODS_IMAGE_RECT = (5, 7, 47, 31)
 NEARBY_TOWNS_NAME_RECT = (54, 10, 118, 25)
 RATES_RECT = (168, 31, 194, 44)
 ARROW_RECT = (231, 31, 244, 44)
 CELL_HEIGHT = 56
 
-# Inventory Area
+# Rectangle informations - Inventory Area
 # All sizes are same - 247 x 223
 TRADE_GOODS_RECT = {}
 TRADE_GOODS_RECT[(800, 600)] = (69, 103, 316, 326)
@@ -27,13 +29,13 @@ TRADE_GOODS_RECT[(1600, 1024)] = (469, 315, 716, 538)
 TRADE_GOODS_RECT[(1680, 1050)] = (509, 328, 756, 551)
 TRADE_GOODS_RECT[(1920, 1080)] = (629, 343, 876, 566)
 
-# Nearby Towns Area.
+# Rectangle informations  - Nearby Towns Area.
 # All sizes are same - 247 x 279
 NEARBY_TOWNS_RECT = {}
-for key in TRADE_GOODS_RECT:
-    rect = TRADE_GOODS_RECT[key]
-    NEARBY_TOWNS_RECT[key] = (rect[0] + 363, rect[1], rect[2] + 363,
-                              rect[3] + CELL_HEIGHT)
+for __key in TRADE_GOODS_RECT:
+    __rect = TRADE_GOODS_RECT[__key]
+    NEARBY_TOWNS_RECT[__key] = (__rect[0] + 363, __rect[1], __rect[2] + 363,
+                                __rect[3] + CELL_HEIGHT)
 
 def get_images_from_screenshot(image_path):
     """This function generate image list from screenshot.

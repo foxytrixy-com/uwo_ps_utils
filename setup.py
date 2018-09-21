@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="uwo_ps_utils",
-    version="0.1",
+    version="0.2",
     author="Azza",
     author_email="ommokazza@gmail.com",
     description="Common utility modules to help UWO Price Share Aide",
