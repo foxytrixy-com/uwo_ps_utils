@@ -27,6 +27,21 @@ FUNCTIONS
         Return:
             full paths (list)
 
+    get_town_table(screenshot_dir)
+        Generate python code for town table
+
+        Its format is
+            table[town_name] = (nearby town1, nearby town2...nearby town5)
+
+        The length of tuple may be different depends on town.
+
+        Arguments:
+            screenshot_dir (str): Directory which have town_name directory
+                                and label
+
+        Return:
+            python code style string (str)
+
 FILE
     /home/azza/Private/uwo_ps_utils/uwo_ps_utils/common.py
 

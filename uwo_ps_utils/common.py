@@ -48,3 +48,33 @@ def estimate(model_dir, raw_bytes):
             logits = tf.argmax(model, 1)
 
             return sess.run(logits, feed_dict={X: x_data, keep_prob: 1.0})[0]
+
+def get_town_table(screenshot_dir):
+    """Generate python code for town table
+
+    Its format is
+        table[town_name] = (nearby town1, nearby town2...nearby town5)
+
+    The length of tuple may be different depends on town.
+
+    Arguments:
+        screenshot_dir (str): Directory which have town_name directory
+                              and label
+
+    Return:
+        python code style string (str)
+    """
+    result = "table = {}\n"
+    for di in os.listdir(screenshot_dir):
+        dir_path = screenshot_dir + "/" + di
+        if not os.path.isdir(dir_path):
+            continue
+        for f in os.listdir(dir_path):
+            if f.lower().endswith(".txt"):
+                result += "table['%s'] = {" % di
+                lines = open(dir_path + "/" + f).read().splitlines()
+                for i in range(3, len(lines), 3):
+                    result += "'%s', " % lines[i]
+                result = result[:-2] + "}\n"
+                break
+    return result
