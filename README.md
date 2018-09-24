@@ -16,3 +16,6 @@ Requirements:
 
 Packaging
   - python setup.py sdist
+
+Install using pip
+  - pip install --upgrade git+https://github.com/ommokazza/uwo_ps_utils.git@master#egg=uwo_ps_utils
