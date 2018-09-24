@@ -71,10 +71,10 @@ def get_town_table(screenshot_dir):
             continue
         for f in os.listdir(dir_path):
             if f.lower().endswith(".txt"):
-                result += "table['%s'] = {" % di
+                result += "table['%s'] = (" % di
                 lines = open(dir_path + "/" + f).read().splitlines()
                 for i in range(3, len(lines), 3):
                     result += "'%s', " % lines[i]
-                result = result[:-2] + "}\n"
+                result = result[:-2] + ")\n"
                 break
     return result
