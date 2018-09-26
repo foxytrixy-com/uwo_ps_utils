@@ -23,6 +23,15 @@ FUNCTIONS
             [12] ~ [14] : the 4th nearby town. this index may not exist.
             [15] ~ [17] : the 5th nearby town. this index may not exist.
 
+    clear_outside(imgpath):
+        Clear outside of inventory and nearby towns area for privacy
+
+        Arguments:
+            imgpath (str): Image path
+
+        Return:
+            Image object (PIL.Image.Image)
+
 DATA
     ARROW_RECT = (231, 31, 244, 44)
     CELL_HEIGHT = 56

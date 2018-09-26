@@ -109,3 +109,38 @@ def __has_nearby_town(cell_image):
     return  (r - bound) < raw_data[index] and raw_data[index] < (r + bound) \
         and (g - bound) < raw_data[index+1] and raw_data[index+1] < (g + bound) \
         and (b - bound) < raw_data[index+2] and raw_data[index+2] < (b + bound)
+
+def clear_outside(imgpath):
+    """Clear outside of inventory and nearby towns area for privacy
+
+    Arguments:
+        imgpath (str): Image path
+
+    Return:
+        Image object (PIL.Image.Image)
+    """
+    im = Image.open(imgpath)
+    width = im.size[0]
+    height = im.size[1]
+    inventory = TRADE_GOODS_RECT[im.size]
+    towns = NEARBY_TOWNS_RECT[im.size]
+
+    black_img = __make_black_img(width, towns[1] - 1)
+    im.paste(black_img, (0, 0))
+
+    black_img = __make_black_img(width, height - towns[3] - 1)
+    im.paste(black_img, (0, towns[3] + 1))
+
+    black_img = __make_black_img(inventory[0] - 1, height)
+    im.paste(black_img, (0, 0))
+
+    black_img = __make_black_img(towns[0] - inventory[2], height)
+    im.paste(black_img, (inventory[2] + 1, 0))
+
+    black_img = __make_black_img(width - towns[2] - 1, height)
+    im.paste(black_img, (towns[2] + 1, 0))
+
+    return im
+
+def __make_black_img(w, h):
+    return Image.new('RGB', (w, h), color=(0, 0, 0))
