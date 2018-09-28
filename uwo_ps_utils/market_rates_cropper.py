@@ -197,8 +197,12 @@ def get_bar_images_from_cells(cells):
 def convert_bar_to_rates(bars):
     rates = []
     for bar in bars:
-        count, _ = list(filter(__colored_pixel, bar.getcolors()))[0]
-        rates.append(int(count * 2.13))
+        try:
+            count, _ = list(filter(__colored_pixel, bar.getcolors()))[0]
+        except IndexError:
+            count = 0
+        finally:
+            rates.append(int(count * 2.13))
     return rates
 
 def __colored_pixel(pixels):
