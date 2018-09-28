@@ -171,3 +171,36 @@ def clear_outside(imgpath):
 
 def __make_black_img(w, h):
     return Image.new('RGB', (w, h), color=(0, 0, 0))
+
+def get_rates_from_bar(im):
+    """Get rates from bar in the cells
+
+    Arguments:
+        im obejct (PIL.Image.Image): Image object of screenshot
+
+    Return:
+        rates (list): str format of rates.
+                      The sequence is current town and nearby towns
+    """
+    cells = [get_selected_goods_cell_image(im)]
+    cells += get_nearby_towns_cell_images(im)
+    bars = get_bar_images_from_cells(cells)
+    return convert_bar_to_rates(bars)
+
+def get_bar_images_from_cells(cells):
+    bars = []
+    for cell in cells:
+        bars.append(cell.crop((55,49,245,50)))
+
+    return bars
+
+def convert_bar_to_rates(bars):
+    rates = []
+    for bar in bars:
+        count, _ = list(filter(__colored_pixel, bar.getcolors()))[0]
+        rates.append(int(count * 2.12))
+    return rates
+
+def __colored_pixel(pixels):
+    _, rgb = pixels
+    return not (rgb[0] < 75 and rgb[1] < 75 and rgb[2] < 75)
