@@ -198,7 +198,7 @@ def convert_bar_to_rates(bars):
     rates = []
     for bar in bars:
         count, _ = list(filter(__colored_pixel, bar.getcolors()))[0]
-        rates.append(int(count * 2.12))
+        rates.append(int(count * 2.13))
     return rates
 
 def __colored_pixel(pixels):
