@@ -58,21 +58,36 @@ def get_images_from_screenshot(image_path):
     return images
 
 def __process_trade_goods(im):
-    trade_goods_rect = TRADE_GOODS_RECT[im.size]
-    trade_goods_area = im.crop(trade_goods_rect)
-    width = trade_goods_rect[2] - trade_goods_rect[0]
+    cell = get_selected_goods_cell_image(im)
     images = []
-    for i in range(4):
-        cell = trade_goods_area.crop([0,
-                                      CELL_HEIGHT * i,
-                                      width,
-                                      CELL_HEIGHT * i + CELL_HEIGHT])
-        if __is_selected_cell(cell):
-            images += [cell.crop(TRADE_GOODS_IMAGE_RECT)]
-            images += [cell.crop(RATES_RECT)]
-            images += [cell.crop(ARROW_RECT)]
+    images += [cell.crop(TRADE_GOODS_IMAGE_RECT)]
+    images += [cell.crop(RATES_RECT)]
+    images += [cell.crop(ARROW_RECT)]
 
     return images
+
+def get_selected_goods_cell_image(im):
+    """Get selected trade goods cell image.
+
+    Arguments:
+        im (PIL.Image.Image): Image object
+
+    Return
+        Image object (PIL.Image.Image)
+        None if there is no selected cell
+    """
+    inventory_rect = TRADE_GOODS_RECT[im.size]
+    inventory_area = im.crop(inventory_rect)
+    width = inventory_rect[2] - inventory_rect[0]
+    for i in range(4):
+        cell_rect = [0, CELL_HEIGHT * i,
+                     width, CELL_HEIGHT * i + CELL_HEIGHT]
+        cell = inventory_area.crop(cell_rect)
+        if __is_selected_cell(cell):
+            return cell
+
+    raise Exception("No Selected Cell")
+
 
 def __is_selected_cell(cell_image):
     r, g, b = (56, 158, 149)
@@ -85,20 +100,32 @@ def __is_selected_cell(cell_image):
         and (b - bound) < raw_data[index+2] and raw_data[index+2] < (b + bound)
 
 def __process_nearby_towns(im):
-    nearby_towns_rect = NEARBY_TOWNS_RECT[im.size]
-    nearby_towns_area = im.crop(nearby_towns_rect)
-    width = nearby_towns_rect[2] - nearby_towns_rect[0]
     images = []
-    for i in range(5):
-        nearby_towns_cell = nearby_towns_area.crop([0,
-                                                    CELL_HEIGHT * i,
-                                                    width,
-                                                    CELL_HEIGHT * i + CELL_HEIGHT])
-        if __has_nearby_town(nearby_towns_cell):
-            images += [nearby_towns_cell.crop(NEARBY_TOWNS_NAME_RECT)]
-            images += [nearby_towns_cell.crop(RATES_RECT)]
-            images += [nearby_towns_cell.crop(ARROW_RECT)]
+    cells = get_nearby_towns_cell_images(im)
+    for cell in cells:
+        images.append(cell.crop(NEARBY_TOWNS_NAME_RECT))
+        images.append(cell.crop(RATES_RECT))
+        images.append(cell.crop(ARROW_RECT))
+
+    if not images:
+        raise Exception("No Nearby Towns")
     return images
+
+def get_nearby_towns_cell_images(im):
+    nearby_rect = NEARBY_TOWNS_RECT[im.size]
+    nearby_area = im.crop(nearby_rect)
+    width = nearby_rect[2] - nearby_rect[0]
+    cells = []
+    for i in range(5):
+        cell_rect = [0, CELL_HEIGHT * i,
+                     width, CELL_HEIGHT * i + CELL_HEIGHT]
+        cell = nearby_area.crop(cell_rect)
+        if __has_nearby_town(cell):
+            cells.append(cell)
+
+    if not cells:
+        raise Exception("No Nearby Towns")
+    return cells
 
 def __has_nearby_town(cell_image):
     r, g, b = (178, 179, 179)   # the color of image outline
