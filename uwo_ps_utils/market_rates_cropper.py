@@ -8,6 +8,7 @@ TRADE_GOODS_IMAGE_RECT = (5, 7, 47, 31)
 NEARBY_TOWNS_NAME_RECT = (54, 10, 118, 25)
 RATES_RECT = (168, 31, 194, 44)
 ARROW_RECT = (231, 31, 244, 44)
+BAR_RECT = (55, 49, 245, 50)
 CELL_HEIGHT = 56
 
 # Rectangle informations - Inventory Area
@@ -111,6 +112,27 @@ def __process_nearby_towns(im):
         raise Exception("No Nearby Towns")
     return images
 
+def get_images_from_goods_cell(im):
+    """Get images from goods cell
+
+    Arguments:
+        im (PIL.Image.Image): A tarde goods cell
+
+    Return
+        Cropped Images (list): A list of PIL.Image.Image objects
+            [0]: Goods
+            [1]: Rate
+            [2]: Arrow
+            [3]: Bar
+    """
+    images = []
+    images.append(im.crop(TRADE_GOODS_IMAGE_RECT))
+    images.append(im.crop(RATES_RECT))
+    images.append(im.crop(ARROW_RECT))
+    images.append(im.crop(BAR_RECT))
+
+    return images
+
 def get_nearby_towns_cell_images(im):
     nearby_rect = NEARBY_TOWNS_RECT[im.size]
     nearby_area = im.crop(nearby_rect)
@@ -136,6 +158,27 @@ def __has_nearby_town(cell_image):
     return  (r - bound) < raw_data[index] and raw_data[index] < (r + bound) \
         and (g - bound) < raw_data[index+1] and raw_data[index+1] < (g + bound) \
         and (b - bound) < raw_data[index+2] and raw_data[index+2] < (b + bound)
+
+def get_images_from_nearby_cell(im):
+    """Get images from nearby town cell
+
+    Arguments:
+        im (PIL.Image.Image): A nearby town cell
+
+    Return
+        Cropped Images (list): A list of PIL.Image.Image objects
+            [0]: Town Name
+            [1]: Rate
+            [2]: Arrow
+            [3]: Bar
+    """
+    images = []
+    images.append(im.crop(NEARBY_TOWNS_NAME_RECT))
+    images.append(im.crop(RATES_RECT))
+    images.append(im.crop(ARROW_RECT))
+    images.append(im.crop(BAR_RECT))
+
+    return images
 
 def clear_outside(imgpath):
     """Clear outside of inventory and nearby towns area for privacy
@@ -190,7 +233,7 @@ def get_rates_from_bar(im):
 def get_bar_images_from_cells(cells):
     bars = []
     for cell in cells:
-        bars.append(cell.crop((55,49,245,50)))
+        bars.append(cell.crop(BAR_RECT))
 
     return bars
 
