@@ -66,7 +66,7 @@ def get_plummet_second_token(chat):
     Return:
         token (PIL.Image.Image): Image object
     """
-    return chat.crop((215, 0, 235, chat.height))
+    return chat.crop((215, 0, 242, chat.height))
 
 def get_flooded_second_token(chat):
     """Get the first token image from chat image when flooded
@@ -77,7 +77,7 @@ def get_flooded_second_token(chat):
     Return:
         token (PIL.Image.Image): Image object
     """
-    return chat.crop((342, 0, 362, chat.height))
+    return chat.crop((342, 0, 369, chat.height))
 
 def __get_rects(wh):
     """Get rects from the image size.
